@@ -1,0 +1,49 @@
+{% extends 'mod_list.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href={% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}>
+{% endblock %}
+{% block content %}
+    <div class="container clearfix">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加人员</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for file in form %}
+                        <div class="form-group col-md-6 " style="margin-bottom: 10px">
+                            <label >{{ file.label }}</label>
+                                    {{ file }}
+                            <span style="color: red">{{ file.errors.0 }}</span>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary" style="float: left">
+                        <span class="glyphicon glyphicon-file " aria-hidden="true"></span>
+                        保存
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+<script src="{%static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'%}"></script>
+<script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js'%}"></script>
+<script>
+    $(function () {
+        $('#id_date').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: '0',
+            language: "zh-CN",
+            autoclose: true
+        });
+
+    })
+</script>
+{% endblock %}
+
+{% block tittle %}
+    <title>用户添加</title>
+{% endblock %}

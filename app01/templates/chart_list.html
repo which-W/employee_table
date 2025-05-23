@@ -1,0 +1,61 @@
+{% extends 'mod_list.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">数据图</div>
+            <div id='my_chart' class="panel-body" style="width: 100%; height: 500px">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/echarts.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            iniBar();
+        })
+
+        function iniBar() {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('my_chart'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '员工图',
+                    textAlign:'auto',
+                    left : 'center'
+                },
+                tooltip: {},
+                legend: {
+                    data: [],
+                    bottom:0
+                },
+                xAxis: {
+                    data: []
+                },
+                yAxis: {},
+                series: [
+                ]
+            };
+            $.ajax({
+                url: '/chart/data',
+                dataType: 'json',
+                type: 'get',
+                success: function (res) {
+                    if(res.status){
+                        option.legend.data = res.data.legend;
+                        option.xAxis.data = res.data.type_list;
+                        option.series = res.data.data_list
+                    }
+                    myChart.setOption(option);
+                }
+            })
+            // 使用刚指定的配置项和数据显示图表。
+
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'mod_list.html' %}
+
+{% block content %}
+    <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">新建部门</h3>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-inline" method="post">
+                  {% csrf_token %}
+                <div class="form-group col-md-6">
+                    <label for="exampleInputName2">部门名称</label>
+                    <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入新部门" name="department">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-file " aria-hidden="true"></span>
+                    保存
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block tittle %}
+    <title>添加部门列表</title>
+{% endblock %}

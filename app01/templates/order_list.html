@@ -1,0 +1,287 @@
+{% extends 'mod_list.html' %}
+
+{% block content %}
+    {% load static %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1/css/bootstrap.min.css' %}">
+    {% endblock %}
+    <div class="container">
+        <button type="button" id="btn-saved" class="btn btn-success " style="margin-bottom: 10px" data-toggle="modal"
+                >
+            新建
+        </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">订单列表</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form1" class="queryset-inline" novalidate>
+                        <div class="clearfix">
+                            {% for file in form %}
+                                <div class="queryset-group col-md-6" style="margin-bottom: 10px ; position: relative">
+                                    <label>{{ file.label }}</label>
+                                    {{ file }}
+                                    <div style="color: red">
+                                        <span class="error_msg" style="position: absolute"></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="btn" type="button" class="btn btn-success">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <h4>确定要删除吗</h4>
+                <p>删除之后没有任何记录保存</p>
+                <p style="text-align: right">
+                    <button id="clear_define" type="button" class="btn btn-default">确定</button>
+                    <button id = 'clear' type="button" class="btn btn-default">取消</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>订单表
+                </div>
+                <table class="table table-bordered table-hove">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>任务处理者</th>
+                        <th>商品名称</th>
+                        <th>价格</th>
+                        <th>出售状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in queryset %}
+                        <tr id="{{ order.id }}">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.user }}</td>
+                            <td>{{ order.name }}</td>
+                            <td>{{ order.price }}</td>
+                            <td>{{ order.get_sale_situation_display }}</td>
+                            <td>
+
+                                <button id="{{ order.id }}" type="button" class="btn btn-primary btn-xs">编辑
+                                </button>
+                                <button id="{{ order.id }}" type="button" class="btn btn-danger btn-xs">
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <ul class="pagination">
+                {{ page_str }}
+            </ul>
+        </div>
+    </div>
+    {% block js %}
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.min.js' %}"></script>
+        <script>
+            $(function () {
+                btn_save_detail()
+                btn_save()
+                btn_delete()
+                btn_fun_delete()
+                btn_edit()
+                btn_fun_edit()
+            })
+            function btn_save_detail(){
+                $('#btn-saved').click(function (){
+                    $('#myModal').modal('show')
+                    window.EIDT_ID = undefined
+                     $('.error_msg').hide()
+                })
+            }
+
+            function btn_save() {
+                $("#btn").click(function () {
+                    console.log(EIDT_ID)
+                    $.ajax({
+                        //请求地址
+                        url: "/order/add",
+                        //请求方式
+                        type: "POST",
+                        //发送的数据
+                        data: $("#form1").serialize(),
+                        //接收的数据类型
+                        dataType: "json",
+                        //请求成功后的回调函数
+                        success: function (data) {
+                            if (data.status) {
+                                $("#form1")[0].reset();
+                                $('.error_msg').hide()
+                                location.reload()
+                            } else {
+                                $.each(data.error, function (name, data) {
+                                    $("#id_" + name).next().text(data)
+                                })
+                            }
+                        }
+                    })
+                })
+
+
+            }
+
+            function btn_delete() {
+                $(".btn-danger").click(function () {
+                    $('#myModal-delete').modal('show')
+                    window.ELEMENT_ID = $(this).attr('id');
+
+
+                })
+                $('#clear').click(function (){
+                    $('#myModal-delete').modal('hide')
+                })
+            }
+
+            function btn_fun_delete() {
+                $("#clear_define").click(function () {
+                        console.log(ELEMENT_ID)
+                        $.ajax(
+                            {
+                                url: "/order/delete",
+                                type: "GET",
+                                data: {
+                                    uid: ELEMENT_ID
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.status) {
+                                        $('#myModal-delete').modal('hide')
+                                        $("tr[uid='" + ELEMENT_ID + "']").remove();
+                                        window.ELEMENT_ID = 0
+                                        location.reload()
+                                    }
+                                }
+                            })
+                    }
+                )
+
+            }
+
+            function btn_edit() {
+                $(".btn-primary").click(function () {
+                        $('.error_msg').empty()
+                        $('#form1')[0].reset()
+                        window.EIDT_ID = $(this).attr('id');
+                        $.ajax(
+                            {
+                                url: '/order/detail',
+                                type: 'GET',
+                                data: {
+                                    uid: EIDT_ID
+                                },
+                                dataType: 'json',
+                                success: function (res) {
+                                    if (res.status) {
+                                        console.log(res)
+                                        $.each(res.data, function (name, value) {
+                                            $('#id_' + name).val(value)
+                                        })
+                                        $('#myModal').modal('show');
+                                    } else {
+                                        alert("获取数据失败")
+                                    }
+                                }
+                            }
+                        )
+                    }
+                )
+            }
+
+            function btn_fun_edit() {
+                $("#btn").click(function () {
+                    var EIDT_ID = window.EIDT_ID;
+                    $('.error_msg').empty()
+                    if (EIDT_ID) {
+                        btn_edits()
+                    } else {
+                        btn_add()
+                    }
+
+                })
+            }
+
+            function btn_add() {
+                $.ajax({
+                    //请求地址
+                    url: "/order/add",
+                    //请求方式
+                    type: "POST",
+                    //发送的数据
+                    data: $("#form1").serialize(),
+                    //接收的数据类型
+                    dataType: "json",
+                    //请求成功后的回调函数
+                    success: function (data) {
+                        if (data.status) {
+                            alert("添加成功")
+                            $("#form1")[0].reset();
+                            $('#myModal').modal('hide')
+                            $('.error_msg').empty()
+                            location.reload()
+                        } else {
+                            $.each(data.error, function (name, data) {
+                                $("#id_" + name).next().text(data)
+                            })
+                        }
+                    }
+                })
+            }
+
+            function btn_edits() {
+                $.ajax({
+                    //请求地址
+                    url: "/order/edit?uid=" + EIDT_ID,
+                    //请求方式
+                    type: "POST",
+                    //发送的数据
+                    data: $("#form1").serialize(),
+                    //接收的数据类型
+                    dataType: "json",
+                    //请求成功后的回调函数
+                    success: function (data) {
+                        if (data.status) {
+                            $("#form1")[0].reset();
+                            $('#myModal').modal('hide')
+                            location.reload()
+                        } else {
+                            if (data.tips) {
+                                alert(data.tips)
+                            } else {
+                                $.each(data.error, function (name, data) {
+                                    $("#id_" + name).next().text(data)
+                                })
+                            }
+                        }
+                    }
+                })
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

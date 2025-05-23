@@ -1,0 +1,62 @@
+{% extends 'mod_list.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">修改人员</h3>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-inline" method="post">
+                    {% csrf_token %}
+                    <div class="form-group col-md-6 " style="margin-bottom: 10px">
+                        <label for="exampleInputName2">人员名称</label>
+                        <input type="text" class="form-control" id="exampleInputName2" value="{{ user.name }}"
+                               placeholder="请输入新姓名" name="name">
+                    </div>
+                    <div class="form-group col-md-6" style="margin-bottom: 10px">
+                        <label for="exampleInputName3">人员年龄</label>
+                        <input type="text" class="form-control" id="exampleInputName3" value="{{ user.age }}"
+                               placeholder="请输入新年龄" name="age">
+                    </div>
+
+                    <div class="form-group col-md-6" style="margin-bottom: 10px">
+                        <label for="exampleInputName4">人员性别</label>
+                        <input type="text" class="form-control" id="exampleInputName4" value="{{ user.gender }}"
+                               placeholder="请输入新性别" name="gender">
+                    </div>
+                    <div class="form-group col-md-6" style="margin-bottom: 10px">
+                        <label for="exampleInputName5">人员薪水</label>
+                        <input type="text" class="form-control" id="exampleInputName5" value="{{ user.salary }}"
+                               placeholder="请输入新薪水" name="salary">
+                    </div>
+
+                    <div class="form-group col-md-6" style="margin-bottom: 10px">
+                        <label for="exampleInputName6">入职日期</label>
+                        <input type="text" class="form-control" id="exampleInputName6"
+                               value="{{ user.date|date:'Y-m-d' }}" placeholder="请输入新入职日期" name="date">
+                    </div>
+                    <div class="form-group col-md-6" style="margin-bottom: 10px">
+                        <label for="1" >所属部门</label>
+                        <select name="department" class="form-control" id="1">
+                            <option value="{{ user.depart_id}}">{{ user.depart.tittle }}</option>
+                            <option value="1">销售部门</option>
+                            <option value="2">开发</option>
+                            <option value="3">人力</option>
+                            <option value="6">运营</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-file " aria-hidden="true"></span>
+                        保存
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block tittle %}
+    <title>编辑人员列表</title>
+{% endblock %}
