@@ -41,7 +41,7 @@
 ### 1. 克隆项目
 
 ```bash
-git clone git@github.com:which-W/employee_table.git
+git clone https://github.com/which-W/employee_table.git
 cd employee_table
 ```
 
