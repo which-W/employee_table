@@ -1,0 +1,2 @@
+# employee_table
+一个基于Django框架的一个简单的员工管理系统
