@@ -272,7 +272,7 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 如有问题或建议，请通过以下方式联系：
 
 - 创建 [Issue](../../issues)
-- 发送邮件至：[your-email@example.com]
+- 发送邮件至：[wengzu728.love@gmail.com]
 
 ## 🙏 致谢
 
