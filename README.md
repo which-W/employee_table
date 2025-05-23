@@ -57,9 +57,7 @@ venv\Scripts\activate  # Windows
 ### 3. 安装依赖
 
 ```bash
-pip install django==3.2.21
-pip install pymysql
-pip install pillow
+pip install -f requirements.txt
 ```
 
 ### 4. 数据库配置
