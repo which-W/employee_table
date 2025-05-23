@@ -1,74 +1,74 @@
 # Employee Table Management System
 
-一个基于Django框架开发的员工管理系统，提供完整的员工信息管理、部门管理、任务分配、订单管理等功能。
+A comprehensive employee management system built with Django framework, providing complete employee information management, department management, task assignment, order management, and more.
 
-## 🚀 功能特性
+## 🚀 Features
 
-### 核心功能
+### Core Features
 
-- **员工管理** - 员工信息的增删改查，包括姓名、年龄、性别、薪资、入职日期等
-- **部门管理** - 部门信息管理，支持员工与部门的关联
-- **用户认证** - 基于Session的用户登录/登出系统，支持验证码
-- **权限控制** - 自定义中间件实现访问权限控制
-- **分页功能** - 自定义分页组件，提供良好的数据浏览体验
+- **Employee Management** - Full CRUD operations for employee information including name, age, gender, salary, hire date, etc.
+- **Department Management** - Department information management with employee-department associations
+- **User Authentication** - Session-based login/logout system with CAPTCHA support
+- **Access Control** - Custom middleware for access permission control
+- **Pagination** - Custom pagination component for better data browsing experience
 
-### 扩展功能
+### Extended Features
 
-- **电话号码管理** - 电话号码库管理，支持级别和状态分类
-- **任务管理** - 任务分配和跟踪系统
-- **订单管理** - 订单信息管理和状态跟踪
-- **数据图表** - 数据可视化展示
-- **密码加密** - 使用MD5加密存储用户密码
+- **Phone Number Management** - Phone number database with level and status classification
+- **Task Management** - Task assignment and tracking system
+- **Order Management** - Order information management and status tracking
+- **Data Visualization** - Chart-based data presentation
+- **Password Encryption** - MD5 encryption for secure password storage
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **后端框架**: Django 3.2.21
-- **数据库**: MySQL 
-- **前端**: HTML + CSS + Bootstrap + JavaScript
-- **Python版本**: Python 3.x
-- **数据库驱动**: PyMySQL
+- **Backend Framework**: Django 3.2.21
+- **Database**: MySQL 
+- **Frontend**: HTML + CSS + Bootstrap + JavaScript
+- **Python Version**: Python 3.x
+- **Database Driver**: PyMySQL
 
-## 📋 系统要求
+## 📋 System Requirements
 
 - Python 3.6+
 - Django 3.2.21
 - MySQL 5.7+
 - PyMySQL
-- Pillow（用于验证码生成）
+- Pillow (for CAPTCHA generation)
 
-## 🔧 安装和配置
+## 🔧 Installation & Setup
 
-### 1. 克隆项目
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/which-W/employee_table.git
 cd employee_table
 ```
 
-### 2. 创建虚拟环境
+### 2. Create Virtual Environment
 
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# 或
+# or
 venv\Scripts\activate  # Windows
 ```
 
-### 3. 安装依赖
+### 3. Install Dependencies
 
 ```bash
 pip install -f requirements.txt
 ```
 
-### 4. 数据库配置
+### 4. Database Configuration
 
-在 `employee_table/settings.py` 中配置数据库连接：
+Configure database connection in `employee_table/settings.py`:
 
 ```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'employee-table',  # 数据库名
+        'NAME': 'employee-table',  # Database name
         'USER': 'your_username',
         'PASSWORD': 'your_password',
         'HOST': '127.0.0.1',
@@ -77,134 +77,134 @@ DATABASES = {
 }
 ```
 
-### 5. 创建数据库
+### 5. Create Database
 
 ```sql
 CREATE DATABASE `employee-table` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 6. 数据库迁移
+### 6. Run Migrations
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 7. 创建超级用户（可选）
+### 7. Create Superuser (Optional)
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 8. 运行服务器
+### 8. Start Development Server
 
 ```bash
 python manage.py runserver
 ```
 
-访问 `http://127.0.0.1:8000` 即可使用系统。
+Visit `http://127.0.0.1:8000` to access the system.
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 employee_table/
-├── app01/                          # 主应用
-│   ├── middleware/                 # 中间件
-│   │   └── auth.py                # 认证中间件
-│   ├── migrations/                 # 数据库迁移文件
-│   ├── uels/                      # 工具类
-│   │   ├── bootstrap.py           # Bootstrap表单基类
-│   │   ├── font_virity.py         # 验证码生成
-│   │   ├── model_form.py          # 模型表单
-│   │   ├── pageform.py            # 分页组件
-│   │   └── pwd_md5.py             # 密码加密
-│   ├── view/                      # 视图模块
-│   ├── models.py                  # 数据模型
+├── app01/                          # Main application
+│   ├── middleware/                 # Middleware
+│   │   └── auth.py                # Authentication middleware
+│   ├── migrations/                 # Database migration files
+│   ├── uels/                      # Utility classes
+│   │   ├── bootstrap.py           # Bootstrap form base class
+│   │   ├── font_virity.py         # CAPTCHA generation
+│   │   ├── model_form.py          # Model forms
+│   │   ├── pageform.py            # Pagination component
+│   │   └── pwd_md5.py             # Password encryption
+│   ├── view/                      # View modules
+│   ├── models.py                  # Data models
 │   └── ...
-├── employee_table/                 # 项目配置
-│   ├── settings.py                # 项目设置
-│   ├── urls.py                    # URL路由
+├── employee_table/                 # Project configuration
+│   ├── settings.py                # Project settings
+│   ├── urls.py                    # URL routing
 │   └── ...
-├── static/                        # 静态文件
-├── templates/                     # 模板文件
-├── manage.py                      # Django管理脚本
-├── requirements.txt               # 依赖包列表
-└── README.md                      # 项目说明
+├── static/                        # Static files
+├── templates/                     # Template files
+├── manage.py                      # Django management script
+├── requirements.txt               # Dependencies list
+└── README.md                      # Project documentation
 ```
 
-## 🗄️ 数据模型
+## 🗄️ Data Models
 
-### 主要模型
+### Main Models
 
-1. **Admin** - 管理员用户
-   - username: 用户名
-   - password: 密码（MD5加密）
+1. **Admin** - Administrator users
+   - username: Username
+   - password: Password (MD5 encrypted)
 
-2. **Department** - 部门
-   - title: 部门名称
+2. **Department** - Departments
+   - title: Department name
 
-3. **Employee_Table** - 员工信息
-   - name: 姓名
-   - age: 年龄
-   - gender: 性别
-   - salary: 薪资
-   - date: 入职日期
-   - depart: 所属部门（外键）
+3. **Employee_Table** - Employee information
+   - name: Full name
+   - age: Age
+   - gender: Gender
+   - salary: Salary
+   - date: Hire date
+   - depart: Department (Foreign Key)
 
-4. **Telephone_User** - 电话号码管理
-   - mobile: 电话号码
-   - price: 价格
-   - level: 级别（1-4级）
-   - status: 状态（已出售/未出售）
+4. **Telephone_User** - Phone number management
+   - mobile: Phone number
+   - price: Price
+   - level: Level (1-4 grades)
+   - status: Status (Sold/Available)
 
-5. **Task** - 任务管理
-   - level: 任务级别
-   - name: 任务名称
-   - description: 任务描述
-   - user: 接收人（外键到Admin）
+5. **Task** - Task management
+   - level: Task priority level
+   - name: Task name
+   - description: Task description
+   - user: Assignee (Foreign Key to Admin)
 
-6. **Order** - 订单管理
-   - user: 处理者（外键到Admin）
-   - name: 商品名称
-   - price: 价格
-   - sale_situation: 销售状态
+6. **Order** - Order management
+   - user: Handler (Foreign Key to Admin)
+   - name: Product name
+   - price: Price
+   - sale_situation: Sales status
 
-## 🔗 主要URL路由
+## 🔗 URL Routes
 
-| 功能模块 | URL路径             | 描述       |
-| -------- | ------------------- | ---------- |
-| 部门管理 | `/depart/show`      | 部门列表   |
-|          | `/depart/add`       | 添加部门   |
-|          | `/depart/<id>/edit` | 编辑部门   |
-| 员工管理 | `/user/show`        | 员工列表   |
-|          | `/user/add/info`    | 添加员工   |
-|          | `/user/<id>/edit`   | 编辑员工   |
-| 电话管理 | `/telephone/list`   | 电话列表   |
-|          | `/telephone/add`    | 添加电话   |
-| 管理员   | `/admin/list`       | 管理员列表 |
-|          | `/admin/add`        | 添加管理员 |
-| 认证     | `/account/login`    | 用户登录   |
-|          | `/account/logout`   | 用户登出   |
-| 任务管理 | `/task/list`        | 任务列表   |
-|          | `/task/add`         | 添加任务   |
-| 订单管理 | `/order/list`       | 订单列表   |
-|          | `/order/add`        | 添加订单   |
-| 数据图表 | `/chart/list`       | 图表展示   |
+| Module     | URL Path            | Description     |
+| ---------- | ------------------- | --------------- |
+| Department | `/depart/show`      | Department list |
+|            | `/depart/add`       | Add department  |
+|            | `/depart/<id>/edit` | Edit department |
+| Employee   | `/user/show`        | Employee list   |
+|            | `/user/add/info`    | Add employee    |
+|            | `/user/<id>/edit`   | Edit employee   |
+| Phone      | `/telephone/list`   | Phone list      |
+|            | `/telephone/add`    | Add phone       |
+| Admin      | `/admin/list`       | Admin list      |
+|            | `/admin/add`        | Add admin       |
+| Auth       | `/account/login`    | User login      |
+|            | `/account/logout`   | User logout     |
+| Task       | `/task/list`        | Task list       |
+|            | `/task/add`         | Add task        |
+| Order      | `/order/list`       | Order list      |
+|            | `/order/add`        | Add order       |
+| Charts     | `/chart/list`       | Chart display   |
 
-## 🔐 安全特性
+## 🔐 Security Features
 
-- **密码加密**: 使用MD5对用户密码进行加密存储
-- **Session认证**: 基于Django Session的用户认证
-- **访问控制**: 自定义中间件控制页面访问权限
-- **验证码**: 登录页面支持图形验证码
-- **CSRF保护**: Django内置CSRF防护
+- **Password Encryption**: MD5 encryption for user passwords
+- **Session Authentication**: Django Session-based user authentication
+- **Access Control**: Custom middleware for page access control
+- **CAPTCHA**: Graphical CAPTCHA for login pages
+- **CSRF Protection**: Built-in Django CSRF protection
 
-## 🎨 自定义组件
+## 🎨 Custom Components
 
-### 1. 分页组件 (`pageform.py`)
+### 1. Pagination Component (`pageform.py`)
 
 ```python
-# 使用示例
+# Usage example
 page_object = Pagination(request, user_list, page_size=10)
 context = {
     'user_list': page_object.queryset,
@@ -212,31 +212,31 @@ context = {
 }
 ```
 
-### 2. Bootstrap表单基类 (`bootstrap.py`)
+### 2. Bootstrap Form Base Class (`bootstrap.py`)
 
-自动为表单字段添加Bootstrap样式类和占位符。
+Automatically adds Bootstrap CSS classes and placeholders to form fields.
 
-### 3. 验证码生成 (`font_virity.py`)
+### 3. CAPTCHA Generation (`font_virity.py`)
 
-生成带干扰线和干扰点的图形验证码。
+Generates graphical CAPTCHAs with interference lines and dots.
 
-## 🚀 部署说明
+## 🚀 Deployment
 
-### 生产环境配置
+### Production Environment Setup
 
-1. 修改 `settings.py` 中的 `DEBUG = False`
+1. Set `DEBUG = False` in `settings.py`
 
-2. 配置 `ALLOWED_HOSTS`
+2. Configure `ALLOWED_HOSTS`
 
-3. 配置静态文件收集：
+3. Collect static files:
 
    ```bash
    python manage.py collectstatic
    ```
 
-4. 使用 Gunicorn 或其他WSGI服务器部署
+4. Deploy with Gunicorn or other WSGI servers
 
-### Docker部署（可选）
+### Docker Deployment (Optional)
 
 ```dockerfile
 FROM python:3.8
@@ -248,36 +248,36 @@ EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-1. Fork 本项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 更新日志
+## 📝 Changelog
 
-- **v1.0.0** - 初始版本发布
-  - 基础员工管理功能
-  - 部门管理
-  - 用户认证系统
+- **v1.0.0** - Initial release
+  - Basic employee management functionality
+  - Department management
+  - User authentication system
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 Apache License 2.0 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-## 📞 联系方式
+## 📞 Contact
 
-如有问题或建议，请通过以下方式联系：
+If you have any questions or suggestions, please contact us through:
 
-- 创建 [Issue](../../issues)
-- 发送邮件至：[wengzu728.love@gmail.com]
+- Create an [Issue](../../issues)
+- Send email to: [wengzu728.love@gmail.com]
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-感谢所有为这个项目做出贡献的开发者们！
+Thanks to all developers who have contributed to this project!
 
 ---
 
-⭐ 如果这个项目对您有帮助，请给它一个星标！
+⭐ If this project helps you, please give it a star!
