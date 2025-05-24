@@ -251,9 +251,9 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ## 🤝 Contributing
 
 1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b employee/test`)
+3. Commit your changes (`git commit -m 'how do you to modify'`)
+4. Push to the branch (`git push origin employee/test`)
 5. Open a Pull Request
 
 ## 📝 Changelog
